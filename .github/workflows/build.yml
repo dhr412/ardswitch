@@ -1,0 +1,37 @@
+name: Build binaries
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: "Release version (e.g., v2.0.0)"
+        required: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "stable"
+
+      - name: Build Go file
+        run: |
+          go build -o server.exe src/server.go
+
+      - name: Build C++ file
+        run: |
+          g++ src/autom.cpp -o autom.exe
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: binaries-windows-${{ github.event.inputs.release_version }}
+          path: |
+            server.exe
+            autom.exe
