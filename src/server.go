@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+const endpnt = "triggered"
+
 var (
 	requestCount int
 	mu           sync.Mutex
@@ -76,10 +78,10 @@ func main() {
 		log.Fatalf("Invalid port number: %d.\nMust be between 1 and 65535.", *port)
 	}
 
-	http.HandleFunc("/triggered", triggerHandler)
+	http.HandleFunc("/"+endpnt, triggerHandler)
 
 	addr := fmt.Sprintf("0.0.0.0:%d", *port)
-	fmt.Printf("Server running on http://%s:%d/triggered\n", getLocalIP(), *port)
+	fmt.Printf("Server running on http://%s:%d/%s\n", getLocalIP(), *port, endpnt)
 
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		log.Fatalf("Server failed: %v", err)
