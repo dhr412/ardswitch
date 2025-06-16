@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os/exec"
 )
@@ -32,6 +33,12 @@ func main() {
 	serveIp := flag.String("ip", "0.0.0.0", "IP address to bind the server to")
 	port := flag.Int("port", 3200, "Port to run the server on")
 	flag.Parse()
+	if *port < 1 || *port > 65535 {
+		log.Fatalf("Invalid port number: %d.\nMust be between 1 and 65535.", *port)
+	}
+	if ip := net.ParseIP(*serveIp); ip == nil {
+		log.Fatalf("Invalid IP address: %s", *serveIp)
+	}
 
 	http.HandleFunc("/triggered", triggerHandler)
 
