@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const endpnt = "triggered"
+const endpnt = "trigger"
 
 var (
 	requestCount int
