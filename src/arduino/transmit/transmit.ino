@@ -1,7 +1,7 @@
 #include <WiFiS3.h>
 #include "wifi-config.h"
 
-const char* serverUrl = "http://192.168.1.100:32768/triggered";
+const char* serverUrl = "http://192.168.1.100:32768/trigger";
 
 // Ultrasonic sensor pins
 const int trigPin = 9;
