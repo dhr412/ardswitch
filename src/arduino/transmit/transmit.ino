@@ -16,51 +16,6 @@ bool wasTriggered = false;
 
 WiFiClient wifiClient;
 
-void setup() {
-    Serial.begin(9600);
-
-    pinMode(trigPin, OUTPUT);
-    pinMode(echoPin, INPUT);
-
-    Serial.print("Connecting to WiFi...");
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("Connected to WiFi");
-}
-
-void loop() {
-    unsigned long currentTime = millis();
-    bool sendRequest = false;
-
-    if (currentTime - lastRequestTime < COOLDOWN) {
-        float distance = getDistance();
-        bool isTriggered = (distance > 0 && distance < TRIGGER_DISTANCE);
-
-        if (isTriggered && !wasTriggered) {
-            sendRequest = true;
-            wasTriggered = true;
-        } else if (!isTriggered && wasTriggered) {
-            if (currentTime - lastRequestTime >= COOLDOWN) {
-                wasTriggered = false;
-            }
-        } else if (isTriggered && wasTriggered && (currentTime - lastRequestTime >= COOLDOWN)) {
-            sendRequest = true;
-        }
-    } else {
-        wasTriggered = false;
-    }
-
-    if (sendRequest) {
-        sendHttpPost();
-        lastRequestTime = currentTime;
-    }
-
-    delay(100);
-}
-
 float getDistance() {
     digitalWrite(trigPin, LOW);
     delayMicroseconds(2);
@@ -108,4 +63,49 @@ void sendHttpPost() {
     } else {
         Serial.println("WiFi Disconnected");
     }
+}
+
+void setup() {
+    Serial.begin(9600);
+
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
+
+    Serial.print("Connecting to WiFi...");
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("Connected to WiFi");
+}
+
+void loop() {
+    unsigned long currentTime = millis();
+    bool sendRequest = false;
+
+    if (currentTime - lastRequestTime < COOLDOWN) {
+        float distance = getDistance();
+        bool isTriggered = (distance > 0 && distance < TRIGGER_DISTANCE);
+
+        if (isTriggered && !wasTriggered) {
+            sendRequest = true;
+            wasTriggered = true;
+        } else if (!isTriggered && wasTriggered) {
+            if (currentTime - lastRequestTime >= COOLDOWN) {
+                wasTriggered = false;
+            }
+        } else if (isTriggered && wasTriggered && (currentTime - lastRequestTime >= COOLDOWN)) {
+            sendRequest = true;
+        }
+    } else {
+        wasTriggered = false;
+    }
+
+    if (sendRequest) {
+        sendHttpPost();
+        lastRequestTime = currentTime;
+    }
+
+    delay(100);
 }
