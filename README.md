@@ -1,7 +1,5 @@
 # ArdSwitch
 
-## Introduction
-
 **ArdSwitch** is a keyboard automation project that triggers an `Alt + Esc` keypress on a computer when an ultrasonic sensor (connected to an Arduino with WiFi support) detects motion.
 
 This setup uses a Go-based HTTP server running on the host machine. When the ultrasonic sensor is triggered, the Arduino sends an HTTP request to the server, which then calls a C++ executable that simulates the keypress.
@@ -10,7 +8,7 @@ This setup uses a Go-based HTTP server running on the host machine. When the ult
 
 ---
 
-## How the Project Works
+## How It Works
 
 The system is composed of three key parts:
 
@@ -59,7 +57,7 @@ Replace `"YOUR_WIFI_SSID"` and `"YOUR_WIFI_PASSWORD"` with your actual network c
 
 ---
 
-## Installing the Script
+## Installing the Scripts
 
 ### From Releases (Recommended)
 
@@ -122,6 +120,7 @@ Make sure the compiled `autom.exe` is placed in the same folder as `server.exe`.
 ## Final Notes
 
 * Ensure the Arduino is connected to the same network as the computer running the server.
-* Update the IP in `transmit.ino` (`serverUrl`) to match the host computer’s IP.
+* Update the IP in `transmit.ino` (`serverUrl`) to match the host computer’s IP and make the host computer's IP constant in router settings
+  > (Alternatively, set the host computer's IP address to always be 192.168.1.100 to bypass this step).
 * The automation will not work if the system blocks simulated input (like in some full-screen apps or when UAC dialogs are active).
 * This project assumes basic familiarity with flashing Arduino sketches and setting up a local network.
