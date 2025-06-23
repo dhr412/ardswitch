@@ -7,13 +7,13 @@ int main() {
     keys[0].type = INPUT_KEYBOARD;
     keys[0].ki.wVk = VK_MENU;
 
-    // Press ESC
+    // Press TAB
     keys[1].type = INPUT_KEYBOARD;
-    keys[1].ki.wVk = VK_ESCAPE;
+    keys[1].ki.wVk = VK_TAB;
 
-    // Release ESC
+    // Release TAB
     keys[2].type = INPUT_KEYBOARD;
-    keys[2].ki.wVk = VK_ESCAPE;
+    keys[2].ki.wVk = VK_TAB;
     keys[2].ki.dwFlags = KEYEVENTF_KEYUP;
 
     // Release ALT
