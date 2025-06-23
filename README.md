@@ -1,6 +1,6 @@
 # ArdSwitch
 
-**ArdSwitch** is a keyboard automation project that triggers an `Alt + Esc` keypress on a computer when an ultrasonic sensor (connected to an Arduino with WiFi support) detects motion.
+**ArdSwitch** is a keyboard automation project that triggers an `Alt + Tab` keypress on a computer when an ultrasonic sensor (connected to an Arduino with WiFi support) detects motion.
 
 This setup uses a Go-based HTTP server running on the host machine. When the ultrasonic sensor is triggered, the Arduino sends an HTTP request to the server, which then calls a C++ executable that simulates the keypress.
 
@@ -31,7 +31,7 @@ The system is composed of three key parts:
 
 ### 3. **C++ Automation Executable**
 
-* A simple Windows application that sends a keyboard input of `Alt + Esc` using the `SendInput` API.
+* A simple Windows application that sends a keyboard input of `Alt + Tab` using the `SendInput` API.
 
 **Automation script**: [`autom.cpp`](./src/autom.cpp)
 
